@@ -8,6 +8,9 @@ public class Tile extends Entity {
     public Entity getPlacedEntity() {
         return placedEntity;
     }
+    public Drawable getPlacedDrawable(){
+        return (Drawable) placedEntity;
+    }
 
     public void setPlacedEntity(Entity placedEntity) {
         this.placedEntity = placedEntity;

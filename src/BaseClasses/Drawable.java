@@ -9,6 +9,14 @@ public abstract class Drawable extends Entity{
     protected int height;
     protected DType dType;
 
+    public DType getdType() {
+        return dType;
+    }
+
+    public void setdType(DType dType) {
+        this.dType = dType;
+    }
+
     public int getWidth() {
         return width;
     }

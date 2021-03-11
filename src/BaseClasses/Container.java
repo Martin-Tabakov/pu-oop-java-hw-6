@@ -14,8 +14,14 @@ public abstract class Container {
     }
 
     public void add(Tile t, Node d){
+        d.setPlacedTile(t);
         elements.addLast(d);
         t.setPlacedEntity(elements.getLast());
+    }
+
+    public void remove(Tile t){
+        elements.remove(t.getPlacedEntity());
+        t.setPlacedEntity(null);
     }
 
     public Container()
