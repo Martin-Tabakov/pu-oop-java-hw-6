@@ -1,10 +1,10 @@
 package Containers;
 
 import BaseClasses.Container;
+import BaseClasses.Drawable;
 import Board.Board;
 import Board.Tile;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -18,12 +18,28 @@ public class Snake extends Container {
         this.destination = destination;
         findRoute(b);
     }
+    public boolean hasDestination() {
+        if(route == null) return false;
+        return !route.isEmpty();
+    }
 
     public Node getHead() {
         return (Node) elements.getFirst();
     }
 
     public void move() {
+
+        if(getHead().getPlacedTile().equals(destination)){
+            route=null;
+            destination = null;
+            return;
+        }
+        Tile newHeadPos =  route.getFirst();
+        getHead().setPlacedTile(newHeadPos);
+        newHeadPos.setPlacedEntity(getHead());
+
+
+        route.remove();
 
     }
 
@@ -84,10 +100,10 @@ public class Snake extends Container {
             NodeData current = toVisit.peek();
             toVisit.remove();
             visited.add(current);
-            if(current.getCurrentTile().equals(destination)) return;
+            if(current.getCurrentTile().hasSameCoordinates(destination)) return;
 
             for (Tile neighbour : getNeighbours(b, current.getCurrentTile())) {
-                if (visited.stream().noneMatch(o -> o.getCurrentTile() == neighbour)) {
+                if (visited.stream().noneMatch(o -> o.getCurrentTile().hasSameCoordinates(neighbour) )) {
                     if(neighbour.getPlacedDrawable() == null){
                         toVisit.add(new NodeData(neighbour, current.getCurrentTile()));
                         continue;
@@ -97,7 +113,6 @@ public class Snake extends Container {
                         case obstacle, body -> {}
                         case food, none -> toVisit.add(new NodeData(neighbour, current.getCurrentTile()));
                     }
-
                 }
 
             }

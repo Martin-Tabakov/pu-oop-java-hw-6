@@ -25,8 +25,6 @@ public class GameWindow extends JFrame implements MouseListener {
 
 
         s.add(b.getTile(20, 20), new Node(20,20, DType.body));
-        s.add(b.getTile(19, 20), new Node(19,20, DType.body));
-        s.add(b.getTile(19, 19), new Node(19,19, DType.body));
 
         Tile tile =b.getRandomEmptyTile();
         f.add(tile,new Node(tile.getX(),tile.getY(),DType.food));
@@ -34,7 +32,7 @@ public class GameWindow extends JFrame implements MouseListener {
         tile = b.getRandomEmptyTile();
         o.add(tile,new Node(tile.getX(),tile.getY(),DType.obstacle));
 
-        s.setDestination(b.getTile(22,20),b);
+
 
         this.setSize(500, 530);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -59,8 +57,10 @@ TimerTask timerTask = new TimerTask() {
 
     private void makeMove() {
         System.out.println("Tick!");
-        s.move();
-        repaint();
+        if(s.hasDestination()){
+            s.move();
+            repaint();
+        }
     }
 
 
@@ -81,8 +81,14 @@ TimerTask timerTask = new TimerTask() {
     @Override
     public void mouseClicked(MouseEvent e) {
         System.out.println("click!");
+        int x = e.getX()/10;
+        int y = (e.getY()-30) /10;
 
-        s.setDestination(b.getTile(22,20),b);
+        System.out.println(x);
+        System.out.println(y);
+
+        s.setDestination(b.getTile(x,y),b);
+
 
         /*timerTask.cancel();
         t.cancel();

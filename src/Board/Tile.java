@@ -20,4 +20,7 @@ public class Tile extends Entity {
         super(x, y);
         this.placedEntity = null;
     }
+    public boolean hasSameCoordinates(Tile t){
+        return this.getX() == t.getX() && this.getY() ==t.getY();
+    }
 }

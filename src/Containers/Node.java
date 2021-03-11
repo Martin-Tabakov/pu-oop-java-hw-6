@@ -15,6 +15,8 @@ public class Node extends Drawable {
 
     public void setPlacedTile(Tile placedTile) {
         this.placedTile = placedTile;
+        this.setX(placedTile.getX());
+        this.setY(placedTile.getY());
     }
 
     public Node(int x, int y, DType DType) {
